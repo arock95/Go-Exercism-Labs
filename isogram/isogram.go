@@ -1,20 +1,38 @@
 // Package isogram provides function to test whether a string is an isogram
 package isogram
 
-import "strings"
-
-// prepWord removes hyphens and spaces from the word or phrase, and capitalizes it
-func prepWord(word string) string {
-	return strings.ToUpper(strings.ReplaceAll(strings.ReplaceAll(word, "-", ""), " ", ""))
-}
+import (
+	"unicode"
+)
 
 // IsIsogram tests whether a string is an isogram
 func IsIsogram(test string) bool {
-	test = prepWord(test)
-	for i, v := range test {
-		if strings.ContainsRune(test[i+1:], v) {
-			return false
+	dict := make(map[rune]int)
+
+	for _, c := range test {
+		if unicode.IsLetter(c) {
+			_, ok := dict[unicode.ToUpper(c)]
+
+			if ok {
+				return false
+			}
+			dict[unicode.ToUpper(c)] = 1
 		}
 	}
 	return true
 }
+
+// func prepWord(word string) string {
+// 	return strings.ToUpper(strings.ReplaceAll(strings.ReplaceAll(word, "-", ""), " ", ""))
+// }
+
+// // IsIsogram tests whether a string is an isogram
+// func IsIsogram(test string) bool {
+// 	test = prepWord(test)
+// 	for i, v := range test {
+// 		if strings.ContainsRune(test[i+1:], v) {
+// 			return false
+// 		}
+// 	}
+// 	return true
+// }
