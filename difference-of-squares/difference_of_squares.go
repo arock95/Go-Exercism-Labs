@@ -2,20 +2,13 @@ package diffsquares
 
 // SquareOfSum adds integers from 1 to the given number and returns the square
 func SquareOfSum(num int) int {
-	total := 0
-	for i := 1; i <= num; i++ {
-		total += i
-	}
-	return total * total
+	sum := (num * (num + 1)) / 2
+	return sum * sum
 }
 
 // SumOfSquares squares each number from 1 to the given number and returns the sum
 func SumOfSquares(num int) int {
-	total := 0
-	for i := 1; i <= num; i++ {
-		total += i * i
-	}
-	return total
+	return (num * (num + 1) * (2*num + 1)) / 6
 }
 
 // Difference finds the difference between sumofsquare and squareofsum of a particular ranges of numbers
