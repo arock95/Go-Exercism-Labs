@@ -13,3 +13,12 @@ Isogram
 Leap
 List Ops
 Luhn                  - regexp mustcompile and matchstring, strconv.atoi converts a string to an int
+Pangram               - using a map to determine uniqueness as well as completeness (are all letters represented in a string)
+Proverb
+raindrops
+Reverse String
+RNA Transcription 
+Scrabble Score
+Spage Age
+Triangle
+Two Fer
