@@ -6,6 +6,8 @@ Accumulate            - ability to pass functions as a parameter to a function
 
 Anagram               - strings.EqualFold for case insensitive string equality and reflect.DeepEqual for map equality
 
+Atbash Cipher         - interacting with runes like their ASCII integers (use them in math equations, etc.)
+
 Bob                   - regexp mustcompile and matchstring, switch/case
 
 Darts                 - math sqrt/pow (and hypot)
@@ -13,6 +15,8 @@ Darts                 - math sqrt/pow (and hypot)
 Difference of Squares - fast equations for sum of squares and square of sums
 
 ETL
+
+Grains
 
 Hamming
 
