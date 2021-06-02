@@ -2,50 +2,55 @@ Golang exercises through exercism.io
 
 What I've learned from each exercise
 
-Accumulate            - ability to pass functions as a parameter to a function
+* Accumulate            - ability to pass functions as a parameter to a function
+* Anagram               - strings.EqualFold for case insensitive string equality and reflect.DeepEqual for map equality
 
-Anagram               - strings.EqualFold for case insensitive string equality and reflect.DeepEqual for map equality
+* Atbash Cipher         - interacting with runes like their ASCII integers (use them in math equations, etc.)
 
-Atbash Cipher         - interacting with runes like their ASCII integers (use them in math equations, etc.)
+* Bob                   - regexp mustcompile and matchstring, switch/case
 
-Bob                   - regexp mustcompile and matchstring, switch/case
+* Darts                 - math sqrt/pow (and hypot)
 
-Darts                 - math sqrt/pow (and hypot)
+* Difference of Squares - fast equations for sum of squares and square of sums
 
-Difference of Squares - fast equations for sum of squares and square of sums
+* ETL
 
-ETL
+* Grains
 
-Grains
+* Hamming
 
-Hamming
+* Isogram
 
-Isogram
+* Leap
 
-Leap
+* List Ops
 
-List Ops
+* Luhn                  - regexp mustcompile and matchstring, strconv.atoi converts a string to an int
 
-Luhn                  - regexp mustcompile and matchstring, strconv.atoi converts a string to an int
-
-Pangram               - using a map to determine uniqueness as well as completeness (are all letters 
+* Pangram               - using a map to determine uniqueness as well as completeness (are all letters 
 represented in a string)
 
-Proverb
+* Proteins              - custom errors
+  * type CustomError string
+  * func (e CustomError) Error() string{ return string(e)}
+  * const ( ErrInvalidBase = CustomError("error ... ") )
+  * or just var ErrStop = errors.New("err stop")
 
-raindrops
+* Proverb
 
-Reverse String
+* raindrops
 
-RNA Transcription 
+* Reverse String
 
-Scrabble Score
+* RNA Transcription 
 
-Spage Age
+* Scrabble Score
 
-Triangle
+* Spage Age
 
-Two Fer
+* Triangle
 
-Word Count            - regexp mustcompile and findallstring; adding to an map without testing a key's 
+* Two Fer
+
+* Word Count            - regexp mustcompile and findallstring; adding to an map without testing a key's 
 existence first (for [string]int maps)
