@@ -44,6 +44,8 @@ represented in a string)
 
 * RNA Transcription 
 
+* Rotational Cipher       - if else/if else
+
 * Scrabble Score
 
 * Spage Age
