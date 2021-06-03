@@ -9,6 +9,8 @@ What I've learned from each exercise
 
 * Bob                   - regexp mustcompile and matchstring, switch/case
 
+* Collatz conjecture    - 
+
 * Darts                 - math sqrt/pow (and hypot)
 
 * Difference of Squares - fast equations for sum of squares and square of sums
