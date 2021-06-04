@@ -50,6 +50,8 @@ represented in a string)
 
 * Scrabble Score
 
+* Secret Handshake        - bit operations <<, >>, & (and), | (or), ^ (xor); use of uints for this purpose
+
 * Spage Age
 
 * Triangle
