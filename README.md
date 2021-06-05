@@ -17,7 +17,8 @@ What I've learned from each exercise
 
 * ETL
 
-* Grains
+* Grains               - using bit shifting when needing to double a value, bit shifts are
+evaluated at compile time making them extremely fast.
 
 * Hamming
 
