@@ -7,53 +7,43 @@ type clock struct {
 	minute int
 }
 
+// Clock is a custom type based on clock struct
 type Clock clock
 
+// New creates a new clock
 func New(hour, minute int) Clock {
-	var c = Clock{}
-	c.Add(minute + hour*60)
-	return c
+	hour += minute / 60
+	minute %= 60
+
+	hour += 24
+	hour %= 24
+
+	if minute < 0 {
+		hour--
+		minute += 60
+	}
+
+	hour %= 24
+	if hour < 0 {
+		hour += 24
+	}
+
+	return Clock{
+		hour:   hour,
+		minute: minute,
+	}
 }
 
 func (c Clock) String() string {
 	return fmt.Sprintf("%02d:%02d", c.hour, c.minute)
 }
 
-func (d Clock) Add(minutes int) Clock {
-	c := Clock {
-		hour: d.hour,
-		minute: d.minute,
-	}
-	fmt.Println("C from Add2", c, minutes)
-	hoursFromMin := minutes / 60
-	hoursFromMin += c.hour
-	minutes %= 60
-	minutes += c.minute
-
-	hoursFromMin += 24
-	hoursFromMin %= 24
-
-	if minutes < 0 {
-		hoursFromMin += 23
-		minutes += c.minute + 60
-	}
-
-	// need to mod 60 and add hours and such
-	hoursFromMin += minutes / 60
-	minutes %= 60
-	hoursFromMin %= 24
-
-	c.hour = hoursFromMin
-	c.minute = minutes
-
-	return c
+// Add adds minutes to the clock
+func (c Clock) Add(minutes int) Clock {
+	return New(c.hour, c.minute+minutes)
 }
 
-func (d Clock) Subtract(minutes int) Clock {
-	c := Clock {
-		hour: d.hour,
-		minute: d.minute,
-	}
-	c.Add(minutes * -1)
-	return c
+// Subtract subtracts minutes from the clock
+func (c Clock) Subtract(minutes int) Clock {
+	return New(c.hour, c.minute-minutes)
 }
