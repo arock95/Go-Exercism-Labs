@@ -9,6 +9,8 @@ What I've learned from each exercise
 
 * Bob                   - regexp mustcompile and matchstring, switch/case
 
+* Clock                 - pointer vs value receivers (https://github.com/golang/go/wiki/CodeReviewComments#receiver-type)
+
 * Collatz conjecture    - 
 
 * Darts                 - math sqrt/pow (and hypot)
