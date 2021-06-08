@@ -2,7 +2,6 @@ package allyourbase
 
 import (
 	"errors"
-	"reflect"
 )
 
 func intPow(base, pow int) int {
@@ -27,13 +26,8 @@ func fromBaseTenToOutputBase(outputBase, baseTenValue int) []int {
 	divisionResult := baseTenValue
 
 	for divisionResult != 0 {
-		outputDigits = append(outputDigits, divisionResult%outputBase)
+		outputDigits = append([]int{divisionResult%outputBase}, outputDigits... )
 		divisionResult = divisionResult / outputBase
-	}
-
-	//reverse array
-	for i := 0; i < len(outputDigits)/2; i++ {
-		outputDigits[i], outputDigits[len(outputDigits)-i-1] = outputDigits[len(outputDigits)-i-1], outputDigits[i]
 	}
 	return outputDigits
 }
@@ -55,7 +49,7 @@ func ConvertToBase(inputBase int, inputDigits []int, outputBase int) ([]int, err
 	bTen := toBaseTen(inputBase, inputDigits)
 	ret := fromBaseTenToOutputBase(outputBase, bTen)
 
-	if reflect.DeepEqual([]int{}, ret) {
+	if len(ret) == 0 {
 		return []int{0}, nil
 	}
 
