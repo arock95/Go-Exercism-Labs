@@ -5,15 +5,17 @@ import (
 	"unicode"
 )
 
+// Cipher is generic interface inherited by all implementations
 type Cipher interface {
 	Encode(string) string
 	Decode(string) string
 }
 
+// CeasarImp is the simple caesar implementation of Cipher
 type CeasarImp struct {
 }
 
-//97 - 122
+// Encode ...
 func (c CeasarImp) Encode(pt string) string {
 	lettersOnly := strings.Builder{}
 	for _, l := range pt {
@@ -29,6 +31,7 @@ func (c CeasarImp) Encode(pt string) string {
 	return lettersOnly.String()
 }
 
+// Decode ...
 func (c CeasarImp) Decode(ct string) string {
 	lettersOnly := strings.Builder{}
 
@@ -42,6 +45,7 @@ func (c CeasarImp) Decode(ct string) string {
 	return lettersOnly.String()
 }
 
+// ShiftImp is the more customizable caesar implementation of Cipher
 type ShiftImp struct {
 	shift int
 }
@@ -75,4 +79,45 @@ func (s ShiftImp) Decode(ct string) string {
 		}
 	}
 	return lettersOnly.String()
+}
+
+type VigenereImp struct {
+	key string
+}
+
+func (v VigenereImp) Encode(pt string) string {
+	keyLen := len(v.key)
+	cipherText := strings.Builder{}
+	counter := 0
+	for _, l := range pt {
+		if unicode.IsLetter(l) {
+			shiftAmt := v.key[counter%keyLen] - 97
+			newLetter := unicode.ToLower(l) + rune(shiftAmt)
+
+			if newLetter > 122 {
+				newLetter -= 26
+			}
+			cipherText.WriteRune(newLetter)
+			counter++
+		}
+	}
+	return cipherText.String()
+}
+
+func (v VigenereImp) Decode(ct string) string {
+	keyLen := len(v.key)
+	plainText := strings.Builder{}
+	for i, l := range ct {
+		if unicode.IsLetter(l) {
+			keyIndex := i % keyLen
+			shiftAmt := v.key[keyIndex] - 97
+			newLetter := unicode.ToLower(l) - rune(shiftAmt)
+			if newLetter < 97 {
+				newLetter += 26
+			}
+			plainText.WriteRune(newLetter)
+		}
+	}
+
+	return plainText.String()
 }
