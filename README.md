@@ -35,6 +35,9 @@ evaluated at compile time making them extremely fast.
 
 * Luhn                  - regexp mustcompile and matchstring, strconv.atoi converts a string to an int
 
+* Nucleotide Count      - if _, ok := myMap[v]; ok {} pattern to determine if 'v' is a valid
+key for a map
+
 * Pangram               - using a map to determine uniqueness as well as completeness (are all letters 
 represented in a string)
 
