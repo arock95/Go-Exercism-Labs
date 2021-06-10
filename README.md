@@ -41,6 +41,8 @@ key for a map
 * Pangram               - using a map to determine uniqueness as well as completeness (are all letters 
 represented in a string)
 
+* Phone Number          - use fmt.sprintf to format strings easily!  create the fundamental function first then create the others; regexp.replaceallstring
+
 * Proteins              - custom errors
   * type CustomError string
   * func (e CustomError) Error() string{ return string(e)}
