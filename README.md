@@ -35,6 +35,8 @@ evaluated at compile time making them extremely fast.
 
 * Luhn                  - regexp mustcompile and matchstring, strconv.atoi converts a string to an int
 
+* Nth Prime             - only have to go up to sqrt of a number to determine if it is prime
+
 * Nucleotide Count      - if _, ok := myMap[v]; ok {} pattern to determine if 'v' is a valid
 key for a map
 
