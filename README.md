@@ -69,6 +69,8 @@ inherited interface.
 
 * Spage Age
 
+* Strain               - passing predicate functions as arguments to another function, to perform actions on elements of a slice
+
 * Triangle
 
 * Two Fer
