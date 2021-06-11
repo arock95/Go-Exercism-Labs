@@ -63,6 +63,8 @@ represented in a string)
 
 * Secret Handshake        - bit operations <<, >>, & (and), | (or), ^ (xor); use of uints for this purpose
 
+* Sieve                   - make([]bool, 5) makes a list of 5 'falses'; go doesn't have a func to test slice membership
+
 * Simple Cipher           - using structs to implement a generic interface where there is shared behavior but differences in details.  Using the patter of a "New()" function to return a new struct
 generic interface allows code reuse since you can refer to different struct implementations as the
 inherited interface.
