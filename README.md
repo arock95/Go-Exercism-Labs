@@ -27,6 +27,8 @@ evaluated at compile time making them extremely fast.
 
 * Hamming
 
+* ISBN Verifier        - int (rune - '0') --- converts a rune number to the numeric value (ex '9' -> 9)
+
 * Isogram
 
 * Leap
