@@ -31,6 +31,8 @@ evaluated at compile time making them extremely fast.
 
 * Isogram
 
+* Largest series product - 
+
 * Leap
 
 * List Ops
