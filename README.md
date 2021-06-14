@@ -47,6 +47,8 @@ represented in a string)
 
 * Phone Number          - use fmt.sprintf to format strings easily!  create the fundamental function first then create the others; regexp.replaceallstring
 
+* Prime Factors         - using a for vs an if (see comments in go code for details)
+
 * Proteins              - custom errors
   * type CustomError string
   * func (e CustomError) Error() string{ return string(e)}
