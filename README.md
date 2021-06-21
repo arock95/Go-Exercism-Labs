@@ -87,6 +87,9 @@ inherited interface.
 
 * Triangle
 
+* Tree Building        - sort.Slice(records, func(i, j int) bool {return records[i].ID < records[j].ID}), just need to provide Less function; using pointers in the children slice allows us to update each parent's children but only return the root node's pointer but it picks up the whole tree due
+to the pointers in the children's children arays.
+
 * Two Fer
 
 * Word Count            - regexp mustcompile and findallstring; adding to an map without testing a key's 
