@@ -47,6 +47,10 @@ key for a map
 * Pangram               - using a map to determine uniqueness as well as completeness (are all letters 
 represented in a string)
 
+* Parallel Letter Frequency - goroutines, channels; could have used an anonymous function instead of channelFrequency(); could have used buffered
+channels (unnbuffered channel is usually used for signalling and synchronization). This will prevent goroutines from blocking when sending to the channel. However, the buffer doesn't need as many slots as there are goroutines, because we will be able to start receiving from the channel while some goroutines are still sending to it. So len(input) is not a good way to set the channel buffer. The exact optimal buffer size depends on the relative speed of the senders and receivers, and you can use trial and error to determine this, but for most purposes a small fixed size (say 10) is just fine.
+Why do we need a channel buffer at all? Because if a goroutine wants to send its result but the main goroutine is not ready to receive it, the worker goroutine would block. To avoid that, we need enough channel slots that, if the rate of producing results exceeds the rate of consuming results, we can store the excess results until the consumer can catch up.  In practice, as long as the buffer is big enough to avoid too much blocking, it's fine. We wouldn't want to make it a function of N, because that would allow someone to crash the program by simply submitting a large enough N. The program would then try to allocate more memory than is available
+
 * Phone Number          - use fmt.sprintf to format strings easily!  create the fundamental function first then create the others; regexp.replaceallstring
 
 * Prime Factors         - using a for vs an if (see comments in go code for details)

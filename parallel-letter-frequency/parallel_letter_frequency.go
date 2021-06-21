@@ -13,13 +13,14 @@ func Frequency(s string) FreqMap {
 	return m
 }
 
-func channelFrequency(s string, c chan FreqMap) {
-	m := FreqMap{}
-	for _, r := range s {
-		m[r]++
-	}
-	c <- m
-}
+// unnecessary just use anonymous function
+// func channelFrequency(s string, c chan FreqMap) {
+// 	m := FreqMap{}
+// 	for _, r := range s {
+// 		m[r]++
+// 	}
+// 	c <- m
+// }
 
 func addMaps(master FreqMap, toAdd FreqMap) FreqMap {
 	for v := range toAdd {
@@ -35,9 +36,21 @@ func ConcurrentFrequency(quotes []string) FreqMap {
 	m := FreqMap{}
 
 	for _, x := range quotes {
-		go channelFrequency(x, c)
+		//go channelFrequency(x, c)
+		go func(s string, c chan FreqMap) {
+			m := FreqMap{}
+			for _, r := range s {
+				m[r]++
+			}
+			c <- m
+		}(x, c)
 	}
-	for i := 0; i < len(quotes); i++ {
+
+	// can just use for range quotes{...}
+	// for i := 0; i < len(quotes); i++ {
+	// 	m = addMaps(m, <-c)
+	// }
+	for range quotes {
 		m = addMaps(m, <-c)
 	}
 
