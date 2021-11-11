@@ -9,21 +9,21 @@ import (
 )
 
 type Rank struct {
-	name string
-	mp   int
-	p    int
-	w    int
-	l    int
-	d    int
+	TeamName string
+	Matches  int
+	Points   int
+	Wins     int
+	Losses   int
+	Draws    int
 }
 
 const (
-	win  int = 3
-	draw int = 1
+	winPoints  int = 3
+	drawPoints int = 1
 )
 
 func Tally(r io.Reader, b io.Writer) error {
-	matchOutcomes := map[string]*Rank{}
+	matchOutcomes := map[string]Rank{}
 
 	lines := bufio.NewScanner(r)
 	lines.Split(bufio.ScanLines)
@@ -31,50 +31,40 @@ func Tally(r io.Reader, b io.Writer) error {
 	for lines.Scan() {
 		// test for blank lines and comment lines, ignore them
 		line := lines.Text()
-		if len(line) == 0 || line[0] == '#'{
+		if len(line) == 0 || line[0] == '#' {
 			continue
 		}
 
 		match := strings.Split(line, ";")
 
 		if len(match) != 3 {
-			return fmt.Errorf("invalid number of parameters - should include home team;away team;outcome")
+			return fmt.Errorf("invalid match: %s", line)
 		}
 
-		homeTeam := match[0]
-		awayTeam := match[1]
+		homeTeam, awayTeam := matchOutcomes[match[0]], matchOutcomes[match[1]]
 
-		// if there's no entry in the dict for a particular team, add it
-		// to initialize the Rank struct and add the team's name
-		_, ok := matchOutcomes[homeTeam]
-		if !ok {
-			matchOutcomes[homeTeam] = &Rank{name: homeTeam}
-		}
-		_, ok = matchOutcomes[awayTeam]
-		if !ok {
-			matchOutcomes[awayTeam] = &Rank{name: awayTeam}
-		}
-
-		matchOutcomes[homeTeam].mp += 1
-		matchOutcomes[awayTeam].mp += 1
+		homeTeam.TeamName, awayTeam.TeamName = match[0], match[1]
+		homeTeam.Matches++
+		awayTeam.Matches++
 
 		switch match[2] {
 		case "draw":
-			matchOutcomes[homeTeam].d += 1
-			matchOutcomes[homeTeam].p += draw
-			matchOutcomes[awayTeam].d += 1
-			matchOutcomes[awayTeam].p += draw
+			homeTeam.Draws++
+			homeTeam.Points += drawPoints
+			awayTeam.Draws++
+			awayTeam.Points += drawPoints
 		case "win":
-			matchOutcomes[homeTeam].w += 1
-			matchOutcomes[homeTeam].p += win
-			matchOutcomes[awayTeam].l += 1
+			homeTeam.Wins += 1
+			homeTeam.Points += winPoints
+			awayTeam.Losses += 1
 		case "loss":
-			matchOutcomes[awayTeam].w += 1
-			matchOutcomes[awayTeam].p += win
-			matchOutcomes[homeTeam].l += 1
+			awayTeam.Wins++
+			awayTeam.Points += winPoints
+			homeTeam.Losses++
 		default:
-			return fmt.Errorf("needs to be win/loss/draw")
+			return fmt.Errorf("needs to be win/loss/draw: %s", match[2])
 		}
+		matchOutcomes[match[0]], matchOutcomes[match[1]] = homeTeam, awayTeam
 	}
 
 	// Output - write to io.Writer
@@ -83,25 +73,25 @@ func Tally(r io.Reader, b io.Writer) error {
 	teamBufferLen := 30 // length of Team field in output
 	teamsInOrder := orderTeams(matchOutcomes)
 	for _, v := range teamsInOrder {
-		fmt.Fprint(b, fmt.Sprintf("%-*s |  %d |  %d |  %d |  %d |  %d\n", teamBufferLen, v.name, v.mp, v.w, v.d, v.l, v.p))
+		fmt.Fprint(b, fmt.Sprintf("%-*s |  %d |  %d |  %d |  %d |  %d\n", teamBufferLen, v.TeamName, v.Matches, v.Wins, v.Draws, v.Losses, v.Points))
 	}
 
 	return nil
 }
 
 // orderTeams orders the teams by point and then alphabetical order
-func orderTeams (teams map[string] *Rank) []Rank {
+func orderTeams(teams map[string]Rank) []Rank {
 	var teamSlice []Rank
 	for _, team := range teams {
-		teamSlice = append(teamSlice, *team)
+		teamSlice = append(teamSlice, team)
 	}
 
-	sort.SliceStable(teamSlice, func(i,j int) bool {
-		return teamSlice[i].name < teamSlice[j].name
+	sort.Slice(teamSlice, func(i,j int) bool {
+		if teamSlice[i].Points != teamSlice[j].Points {
+			return teamSlice[i].Points > teamSlice[j].Points
+		}
+		return teamSlice[i].TeamName < teamSlice[j].TeamName
 	})
-	sort.SliceStable(teamSlice, func(i,j int) bool {
-		return teamSlice[i].p > teamSlice[j].p
-	})
-	
+
 	return teamSlice
 }
